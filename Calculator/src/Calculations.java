@@ -1,3 +1,5 @@
+import static java.lang.Math.pow;
+
 public class Calculations {
     private String[] index;
     private int pointer;
@@ -34,7 +36,7 @@ public class Calculations {
 
         while (pointer < index.length) {
             String operator = index[pointer];
-            if (!operator.equals("*") && !operator.equals("/")){
+            if (!operator.equals("*") && !operator.equals("/") && !operator.equals("^") && !operator.equals("%")){
                 break;
             } else {
                 pointer++;
@@ -44,11 +46,26 @@ public class Calculations {
             if (operator.equals("*")) {
                 first *= second;
             }
-            else {
+
+            else if (operator.equals("/")){
                 first /= second;
             }
+
+            else if (operator.equals("%")) {
+                    first %= second;
+                }
+
+            else {
+                    if (second == 1 ) {
+                        return first;
+                    } else {
+                        return first * pow(first,second - 1);
+                    }
+            }
+
         }
         return first;
+
     }
 
     private double priorities() {
