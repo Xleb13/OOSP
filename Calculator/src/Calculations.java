@@ -1,3 +1,4 @@
+import static java.lang.Math.floorDiv;
 import static java.lang.Math.pow;
 
 public class Calculations {
@@ -36,7 +37,7 @@ public class Calculations {
 
         while (pointer < index.length) {
             String operator = index[pointer];
-            if (!operator.equals("*") && !operator.equals("/") && !operator.equals("^") && !operator.equals("%")){
+            if (!operator.equals("*") && !operator.equals("/") && !operator.equals("^") && !operator.equals("%") && !operator.equals("//")){
                 break;
             } else {
                 pointer++;
@@ -54,6 +55,10 @@ public class Calculations {
             else if (operator.equals("%")) {
                     first %= second;
                 }
+
+            else if (operator.equals("//")) {
+                first = Math.floorDiv((int) first, (int) second);
+            }
 
             else {
                     if (second == 1 ) {
