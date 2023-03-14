@@ -63,7 +63,6 @@ public class Calculations {
         return first;
     }
 
-
     private double priorities() {
         String next = index[pointer];
         double result;
@@ -94,7 +93,7 @@ public class Calculations {
             if (closBracket.equals("]")) {
                 pointer++;
                 return Math.abs(result);
-            } else new IllegalArgumentException("ожидали ')' но появился символ " + closBracket + "");
+            } else new IllegalArgumentException("ожидали ']' но появился символ " + closBracket + "");
         }
 
         pointer++;
