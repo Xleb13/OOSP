@@ -10,12 +10,12 @@ public class Calculations {
         this.pointer = 0;
     }
 
-    public double calculate(){
+    public double calculate() {
         double first = miltiply();
 
         while (pointer < index.length) {
             String operator = index[pointer];
-            if (!operator.equals("+") && !operator.equals("-")){
+            if (!operator.equals("+") && !operator.equals("-")) {
                 break;
             } else {
                 pointer++;
@@ -24,20 +24,19 @@ public class Calculations {
             double second = miltiply();
             if (operator.equals("+")) {
                 first += second;
-            }
-            else {
+            } else {
                 first -= second;
             }
         }
         return first;
     }
 
-    private double miltiply(){
+    private double miltiply() {
         double first = priorities();
 
         while (pointer < index.length) {
             String operator = index[pointer];
-            if (!operator.equals("*") && !operator.equals("/") && !operator.equals("^") && !operator.equals("%") && !operator.equals("//")){
+            if (!operator.equals("*") && !operator.equals("/") && !operator.equals("^") && !operator.equals("%") && !operator.equals("//")) {
                 break;
             } else {
                 pointer++;
@@ -46,32 +45,24 @@ public class Calculations {
             double second = priorities();
             if (operator.equals("*")) {
                 first *= second;
-            }
-
-            else if (operator.equals("/")){
+            } else if (operator.equals("/")) {
                 first /= second;
-            }
-
-            else if (operator.equals("%")) {
-                    first %= second;
+            } else if (operator.equals("%")) {
+                first %= second;
+            } else if (operator.equals("//")) {
+                first = Math.floor(first / second);
+            } else {
+                if (second == 1) {
+                    return first;
+                } else {
+                    return first * pow(first, second - 1);
                 }
-
-            else if (operator.equals("//")) {
-                first = Math.floorDiv((int) first, (int) second);
-            }
-
-            else {
-                    if (second == 1 ) {
-                        return first;
-                    } else {
-                        return first * pow(first,second - 1);
-                    }
             }
 
         }
         return first;
-
     }
+
 
     private double priorities() {
         String next = index[pointer];
@@ -80,18 +71,32 @@ public class Calculations {
             pointer++;
             result = calculate();
             String closBracket;
-            if (pointer < index.length){
+            if (pointer < index.length) {
                 closBracket = index[pointer];
-            }
-            else {
+            } else {
                 throw new IllegalArgumentException("Не найдено ')'");
             }
-            if (closBracket.equals(")")){
+            if (closBracket.equals(")")) {
                 pointer++;
                 return result;
-            }
-            else new IllegalArgumentException("ожидали ')' но появился символ " + closBracket + "");
+            } else new IllegalArgumentException("ожидали ')' но появился символ " + closBracket + "");
         }
+
+        if (next.equals("[")) {
+            pointer++;
+            result = calculate();
+            String closBracket;
+            if (pointer < index.length) {
+                closBracket = index[pointer];
+            } else {
+                throw new IllegalArgumentException("Не найдено ']'");
+            }
+            if (closBracket.equals("]")) {
+                pointer++;
+                return Math.abs(result);
+            } else new IllegalArgumentException("ожидали ')' но появился символ " + closBracket + "");
+        }
+
         pointer++;
         return Double.parseDouble(next);
     }
