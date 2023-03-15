@@ -9,17 +9,23 @@ public class EquationCalculations {
         equation = scanner.nextLine();
 
         Calculations calculations = new Calculations();
-        calculations.decoding(equation);
+        calculations.calculate(equation);
 
         String nub = String.valueOf(calculations.calculate());
         System.out.println(equation + " = "+ nub);
         String n = equation + " = " + nub;
 
-        HistoryCalculatins past = new HistoryCalculatins();
+        HistoryCalculations past = new HistoryCalculations();
         past.uravneny(n);
+
+        NotePad notePad = new NotePad();
+        notePad.writingToFile(n);
 
         UI ui = new UI();
         ui.menu();
+
     }
+
+
 
 }
