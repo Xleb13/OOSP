@@ -120,3 +120,5 @@ public class Calculations {
     }
 
 }
+
+Все плохо передалай
